@@ -50,52 +50,48 @@ fi
 
 ### Update Packages ###
 
-opkg update
+apk update
 
 ### Add Src ###
 
-wget -O passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
-
-opkg-key add passwall.pub
-
->/etc/opkg/customfeeds.conf
+wget -O /etc/apk/keys/passwall.pub https://master.dl.sourceforge.net/project/openwrt-passwall-build/passwall.pub
 
 read release arch << EOF
 $(. /etc/openwrt_release ; echo ${DISTRIB_RELEASE%.*} $DISTRIB_ARCH)
 EOF
 for feed in passwall_luci passwall_packages passwall2; do
-  echo "src/gz $feed https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/opkg/customfeeds.conf
+  echo "https://master.dl.sourceforge.net/project/openwrt-passwall-build/releases/packages-$release/$arch/$feed" >> /etc/apk/repositories.d/passwall.list
 done
 
 ### Install package ###
 
-opkg update
+apk update
 sleep 3
-opkg remove dnsmasq
+apk del dnsmasq
 sleep 3
-opkg install dnsmasq-full
+apk add dnsmasq-full
 sleep 2
-opkg install wget-ssl
+apk add wget-ssl
 sleep 1
-opkg install unzip
+apk add unzip
 sleep 2
-opkg install luci-app-passwall2
+apk add luci-app-passwall2
 sleep 3
-opkg install kmod-nft-socket
+apk add kmod-nft-socket
 sleep 2
-opkg install kmod-nft-tproxy
+apk add kmod-nft-tproxy
 sleep 2
-opkg install ca-bundle
+apk add ca-bundle
 sleep 1
-opkg install kmod-inet-diag
+apk add kmod-inet-diag
 sleep 1
-opkg install kernel
+apk add kernel
 sleep 1
-opkg install kmod-netlink-diag
+apk add kmod-netlink-diag
 sleep 1
-opkg install kmod-tun
+apk add kmod-tun
 sleep 1
-opkg install ipset
+apk add ipset
 
 >/etc/banner
 
@@ -114,9 +110,9 @@ echo -e "${GREEN} Passwall.2 Installed Successfully ! ${NC}"
 fi
 
 
-DNS=`ls /usr/lib/opkg/info/dnsmasq-full.control`
+DNS=$(apk info -e dnsmasq-full 2>/dev/null)
 
-if [ "$DNS" == "/usr/lib/opkg/info/dnsmasq-full.control" ]; then
+if [ -n "$DNS" ]; then
 
 echo -e "${GREEN} dnsmaq-full Installed successfully ! ${NC}"
 
@@ -130,7 +126,7 @@ fi
 
 
 ####install_xray
-opkg install xray-core
+apk add xray-core
 
 sleep 2
 
