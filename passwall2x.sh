@@ -12,7 +12,7 @@ echo "Running as root..."
 sleep 2
 clear
 
-uci set system.@system[0].zonename='Asia/Tehran'
+uci set system.@system[0].zonename='Europa/Moscow'
 
 uci set network.wan.peerdns="0"
 
@@ -38,7 +38,7 @@ if [ "$SNNAP" == "SNAPSHOT" ]; then
 
 echo -e "${YELLOW} SNAPSHOT Version Detected ! ${NC}"
 
-rm -f passwalls.sh && wget https://raw.githubusercontent.com/amirhosseinchoghaei/Passwall/main/passwalls.sh && chmod 777 passwalls.sh && sh passwalls.sh
+rm -f passwalls.sh && wget https://raw.githubusercontent.com/dgtltech/Passwall/main/passwalls.sh && chmod 777 passwalls.sh && sh passwalls.sh
 
 exit 1
 
@@ -99,16 +99,6 @@ opkg install ipset
 
 >/etc/banner
 
-echo "    ___    __  ___________  __  ______  __________ ___________   __
-   /   |  /  |/  /  _/ __ \/ / / / __ \/ ___/ ___// ____/  _/ | / /
-  / /| | / /|_/ // // /_/ / /_/ / / / /\__ \\__ \ / __/  / //  |/ /
- / ___ |/ /  / // // _  _/ __  / /_/ /___/ /__/ / /____/ // /|  /
-/_/  |_/_/  /_/___/_/ |_/_/ /_/\____//____/____/_____/___/_/ |_/                                                                                                
-telegram : @AmirHosseinTSL" >> /etc/banner
-
-sleep 1
-
-
 RESULT5=`ls /etc/init.d/passwall2`
 
 if [ "$RESULT5" == "/etc/init.d/passwall2" ]; then
@@ -155,33 +145,11 @@ echo -e "${GREEN} XRAY : OK ! ${NC}"
  echo -e "${YELLOW} XRAY : NOT INSTALLED X ${NC}"
 
  sleep 2
- 
- echo -e "${YELLOW} Trying to install Xray on temp Space ... ${NC}"
-
- sleep 2
-  
-rm -f amirhossein.sh && wget https://raw.githubusercontent.com/amirhosseinchoghaei/mi4agigabit/main/amirhossein.sh && chmod 777 amirhossein.sh && sh amirhossein.sh
 
 fi
 
 
-####improve
-
-cd /tmp
-
-wget -q https://amir3.space/iam.zip
-
-unzip -o iam.zip -d /
-
-cd
-
-########
-
-
-uci set system.@system[0].zonename='Asia/Tehran'
-
-uci set system.@system[0].timezone='<+0330>-3:30'
-
+uci set system.@system[0].zonename='Europa/Moscow'
 
 uci set passwall2.@global_forwarding[0]=global_forwarding
 uci set passwall2.@global_forwarding[0].tcp_no_redir_ports='disable'
@@ -192,7 +160,7 @@ uci set passwall2.@global[0].remote_dns='8.8.4.4'
 
 uci set passwall2.Direct=shunt_rules
 uci set passwall2.Direct.network='tcp,udp'
-uci set passwall2.Direct.remarks='IRAN'
+uci set passwall2.Direct.remarks='RUS'
 uci set passwall2.Direct.ip_list='0.0.0.0/8
 10.0.0.0/8
 100.64.0.0/10
@@ -221,9 +189,9 @@ uci set passwall2.Direct.ip_list='0.0.0.0/8
 fc00::/7
 fe80::/10
 ff00::/8
-geoip:ir'
-uci set passwall2.Direct.domain_list='regexp:^.+\.ir$
-geosite:category-ir'
+geoip:ru'
+uci set passwall2.Direct.domain_list='regexp:^.+\.ru$
+geosite:category-ru'
 
 uci set passwall2.myshunt.Direct='_direct'
 
@@ -231,20 +199,14 @@ uci commit passwall2
 
 uci commit system
 
-uci set system.@system[0].hostname=By-AmirHossein
-
+uci set system.@system[0].hostname=Cudy
 uci commit system
-
-uci set dhcp.@dnsmasq[0].rebind_domain='www.ebanksepah.ir 
-my.irancell.ir'
 
 uci commit
 
 echo -e "${YELLOW}** Installation Completed ** ${ENDCOLOR}"
-echo -e "${MAGENTA} Made With Love By : AmirHossein ${ENDCOLOR}"
 
 rm passwall2x.sh
-
 rm passwallx.sh
 
 /sbin/reload_config
