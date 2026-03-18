@@ -19,7 +19,7 @@
 
 Run this command in openwrt remote ssh
 ```
-rm -f passwallx.sh && wget https://raw.githubusercontent.com/amirhosseinchoghaei/Passwall/main/passwallx.sh && chmod 777 passwallx.sh && sh passwallx.sh
+rm -f passwall2x.sh && wget https://raw.githubusercontent.com/amirhosseinchoghaei/dgtltech/main/passwall2x.sh && chmod 777 passwall2x.sh && sh passwall2x.sh
 ```
 Done !
 
